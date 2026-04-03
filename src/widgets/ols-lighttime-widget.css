@@ -85,6 +85,15 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ols-lighttime-toggle {
+    transition: none;
+  }
+  .ols-lighttime-link:hover .ols-lighttime-toggle {
+    transform: none;
+  }
+}
+
 @media (max-width: 768px) {
   .ols-lighttime-toggle {
     min-width: 5rem;
