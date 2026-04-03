@@ -6,15 +6,29 @@
 (function () {
   "use strict";
 
+  function parseLocalDateString(dateStr) {
+    var parts = dateStr.split("-");
+    if (parts.length !== 3) return new Date(dateStr);
+
+    var year = Number(parts[0]);
+    var monthIndex = Number(parts[1]) - 1;
+    var day = Number(parts[2]);
+
+    return new Date(year, monthIndex, day);
+  }
+
+  function getLocalCalendarDayNumber(date) {
+    return Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+  }
+
   function initOLSWidget() {
     var container = document.getElementById("ols-calendar-widget");
     if (!container) return;
 
     var startStr = container.getAttribute("data-start-date") || "2024-12-22";
-    var startDate = new Date(startStr);
+    var startDate = parseLocalDateString(startStr);
     var today = new Date();
-    var timeDiff = today.getTime() - startDate.getTime();
-    var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+    var daysDiff = getLocalCalendarDayNumber(today) - getLocalCalendarDayNumber(startDate) + 1;
 
     var sunSVG =
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ols-calendar-sun" aria-hidden="true">' +
