@@ -1,4 +1,4 @@
-# @onelightsystem/LT-LH
+# @olsystem/lt-lh
 
 > OLS Sun Light Time system — Light Time and Light Hour / dark hour conversion, Proper Day counter, and embeddable widgets for the OneLightSystem Light Calendar.
 
