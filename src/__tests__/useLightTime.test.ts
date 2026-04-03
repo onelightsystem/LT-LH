@@ -27,7 +27,6 @@ describe("useLightTime", () => {
 
   it("refreshes state when interval elapses", () => {
     const { result } = renderHook(() => useLightTime({ refreshInterval: 1000 }));
-    const initialHour = result.current.hour;
 
     act(() => {
       vi.advanceTimersByTime(1000);
@@ -37,7 +36,6 @@ describe("useLightTime", () => {
     // (same-second results may be identical, but the call must not throw)
     expect(result.current.hour).toBeDefined();
     expect(result.current.hour.lightTime).toMatch(/^\d+(LH|dh)$/);
-    void initialHour; // used to satisfy lint; value compared above
   });
 
   it("clears the interval on unmount", () => {
