@@ -1,0 +1,89 @@
+{
+  "name": "@olsystem/lt-lh",
+  "version": "0.1.0",
+  "description": "OLS Sun Light Time system — Light Hour (LH) / dark hour (dh) conversion, Proper Day counter, and embeddable widgets for the OneLightSystem Light Calendar.",
+  "keywords": [
+    "ols",
+    "onelightsystem",
+    "light-time",
+    "sun-calendar",
+    "light-hour",
+    "proper-day",
+    "widget"
+  ],
+  "license": "MIT",
+  "author": "OneLightSystem OLS (https://www.olsme.com)",
+  "homepage": "https://github.com/onelightsystem/Stime-light#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onelightsystem/Stime-light.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onelightsystem/Stime-light/issues"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./widgets/light-time": {
+      "import": "./dist/widgets/ols-lighttime-widget.js",
+      "default": "./dist/widgets/ols-lighttime-widget.js"
+    },
+    "./widgets/calendar": {
+      "import": "./dist/widgets/ols-calendar-widget.js",
+      "default": "./dist/widgets/ols-calendar-widget.js"
+    },
+    "./css/light-time": "./dist/widgets/ols-lighttime-widget.css",
+    "./css/calendar": "./dist/widgets/ols-calendar-widget.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:widgets": "mkdir -p dist/widgets && cp src/widgets/* dist/widgets/",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build && npm run build:widgets"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.1.0",
+    "jsdom": "^29.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2",
+    "zod": "^4.3.6"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
