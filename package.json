@@ -100,7 +100,10 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/widgets/**/*.js",
+    "./dist/widgets/**/*.cjs"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"
