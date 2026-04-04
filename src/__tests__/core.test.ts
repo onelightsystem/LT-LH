@@ -65,6 +65,24 @@ describe("getLightDay", () => {
     });
     expect(result.year).toBe(1000);
   });
+
+  it("returns day 1 for epoch using local-date constructor (timezone-safe)", () => {
+    // new Date(y, m-1, d) creates local midnight, so getDate() always returns 22
+    // regardless of the runtime timezone — verifying no UTC ±1 day shift occurs.
+    const epochLocal = new Date(2024, 11, 22); // Dec 22, 2024 local midnight
+    const result = getLightDay(epochLocal);
+    expect(result.day).toBe(1);
+    expect(result.quarter).toBe(1);
+    expect(result.year).toBe(3406);
+  });
+
+  it("epochDate string is parsed as local calendar date (timezone-safe)", () => {
+    // Verify epochDate in config is split on '-' and fed into Date.UTC,
+    // so "2024-12-22" never shifts ±1 day regardless of runtime timezone.
+    const epochLocal = new Date(2024, 11, 22); // Dec 22, 2024 local midnight
+    const result = getLightDay(epochLocal, { epochDate: "2024-12-22" });
+    expect(result.day).toBe(1);
+  });
 });
 
 describe("validateCoordinates", () => {

@@ -12,7 +12,7 @@ export default defineConfig([
     external: ["react", "react-dom"],
     treeshake: true,
   },
-  // Vanilla widgets (IIFE for <script> tags + ESM for bundlers)
+  // Vanilla widgets — ESM for bundlers (deps kept external to avoid duplicates)
   {
     entry: {
       "widgets/ols-lighttime-widget": "src/widgets/ols-lighttime-widget.ts",
@@ -20,8 +20,24 @@ export default defineConfig([
       "widgets/calendar-orb": "src/widgets/calendar-orb.ts",
       "widgets/solar-day-arc": "src/widgets/solar-day-arc.ts",
     },
-    format: ["esm", "iife"],
+    format: ["esm"],
     dts: true,
+    splitting: false,
+    sourcemap: true,
+    clean: false,
+    treeshake: true,
+  },
+  // Vanilla widgets — IIFE for <script> tags (all deps bundled for standalone use)
+  {
+    entry: {
+      "widgets/ols-lighttime-widget.global":
+        "src/widgets/ols-lighttime-widget.ts",
+      "widgets/ols-calendar-widget.global": "src/widgets/ols-calendar-widget.ts",
+      "widgets/calendar-orb.global": "src/widgets/calendar-orb.ts",
+      "widgets/solar-day-arc.global": "src/widgets/solar-day-arc.ts",
+    },
+    format: ["iife"],
+    dts: false,
     splitting: false,
     sourcemap: true,
     clean: false,
