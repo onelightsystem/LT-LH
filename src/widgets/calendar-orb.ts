@@ -156,4 +156,6 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
 }
 
 // Expose for vanilla script usage
-(window as unknown as Record<string, unknown>).createCalendarOrb = createCalendarOrb;
+if (typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).createCalendarOrb = createCalendarOrb;
+}
