@@ -57,13 +57,17 @@ export function getLightDay(
   const epochStr = config?.epochDate ?? DEFAULT_EPOCH;
   const lightYearBase = config?.lightYearBase ?? DEFAULT_LIGHT_YEAR_BASE;
 
-  // Parse epochStr as local calendar date to avoid UTC ±1 day shift from YYYY-MM-DD parsing
-  const [ey, em, ed] = epochStr.split("-").map(Number);
+  // Parse epochStr as local calendar date to avoid UTC ±1 day shift from YYYY-MM-DD parsing.
+  // Using Number() + isNaN guards ensures malformed epoch strings fall back to the default epoch.
+  const parts = epochStr.split("-").map(Number);
+  const ey = !isNaN(parts[0]!) ? parts[0]! : 2024;
+  const em = !isNaN(parts[1]!) ? parts[1]! : 12;
+  const ed = !isNaN(parts[2]!) ? parts[2]! : 22;
   const target = date ?? new Date();
 
   // Use Date.UTC day numbers (integer days since Unix epoch in UTC) to diff calendar days.
   // Extracting local Y/M/D from `target` and feeding into Date.UTC eliminates DST 23/25-hour days.
-  const epochDayNum = Date.UTC(ey, (em ?? 1) - 1, ed ?? 1) / 86400000;
+  const epochDayNum = Date.UTC(ey, em - 1, ed) / 86400000;
   const targetDayNum =
     Date.UTC(target.getFullYear(), target.getMonth(), target.getDate()) / 86400000;
 
