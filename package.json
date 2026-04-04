@@ -1,6 +1,6 @@
 {
   "name": "@olsystem/lt-lh",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "OLS Sun Light Time system — Light Hour (LH) / dark hour (dh) conversion, Proper Day counter, and embeddable widgets for the OneLightSystem Light Calendar.",
   "keywords": [
     "ols",
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/onelightsystem/Stime-light#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/onelightsystem/Stime-light.git"
+    "url": "git+https://github.com/onelightsystem/Stime-light.git"
   },
   "bugs": {
     "url": "https://github.com/onelightsystem/Stime-light/issues"
@@ -33,14 +33,24 @@
     },
     "./widgets/light-time": {
       "import": "./dist/widgets/ols-lighttime-widget.js",
-      "default": "./dist/widgets/ols-lighttime-widget.js"
+      "types": "./dist/widgets/ols-lighttime-widget.d.ts",
+      "default": "./dist/widgets/ols-lighttime-widget.global.js"
     },
     "./widgets/calendar": {
       "import": "./dist/widgets/ols-calendar-widget.js",
-      "default": "./dist/widgets/ols-calendar-widget.js"
+      "types": "./dist/widgets/ols-calendar-widget.d.ts",
+      "default": "./dist/widgets/ols-calendar-widget.global.js"
     },
-    "./css/light-time": "./dist/widgets/ols-lighttime-widget.css",
-    "./css/calendar": "./dist/widgets/ols-calendar-widget.css"
+    "./widgets/calendar-orb": {
+      "import": "./dist/widgets/calendar-orb.js",
+      "types": "./dist/widgets/calendar-orb.d.ts",
+      "default": "./dist/widgets/calendar-orb.global.js"
+    },
+    "./widgets/solar-day-arc": {
+      "import": "./dist/widgets/solar-day-arc.js",
+      "types": "./dist/widgets/solar-day-arc.d.ts",
+      "default": "./dist/widgets/solar-day-arc.global.js"
+    }
   },
   "files": [
     "dist",
@@ -49,7 +59,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:widgets": "mkdir -p dist/widgets && cp src/widgets/* dist/widgets/",
+    "build:widgets": "echo 'Widgets built by tsup'",
     "lint": "eslint src/",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -70,6 +80,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.0.0",
     "@types/react": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.58.0",
@@ -85,5 +96,13 @@
   },
   "dependencies": {
     "zod": "^4.3.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }

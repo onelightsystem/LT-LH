@@ -44,4 +44,4 @@ This Code of Conduct is adapted from the [Contributor Covenant](https://www.cont
 
 ---
 
-OneLightSystem OLS · Belmont, CA · [olsme.com](https://www.olsme.com)
+OneLightSystem OLS · [olsme.com](https://www.olsme.com)
