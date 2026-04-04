@@ -36,11 +36,17 @@ function LightTimeDisplay() {
 
   return (
     <div>
-      <div style={{ fontSize: '3rem', fontWeight: 800 }}>{hour.lightTime}</div>
+      <div className="light-time-value">{hour.lightTime}</div>
       <div>Light Day {day.day} • {day.quarterLabel} • Year {day.year}</div>
     </div>
   );
 }
+
+// Add this to your app stylesheet:
+// .light-time-value {
+//   font-size: 3rem;
+//   font-weight: 800;
+// }
 ```
 
 ### TypeScript / JavaScript
