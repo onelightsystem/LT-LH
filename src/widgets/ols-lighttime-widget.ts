@@ -71,4 +71,6 @@ export function initLightTimeWidget(options?: LightTimeWidgetOptions): void {
 }
 
 // Expose for direct script usage (vanilla <script> tag)
-(window as unknown as Record<string, unknown>).initLightTimeWidget = initLightTimeWidget;
+if (typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).initLightTimeWidget = initLightTimeWidget;
+}
