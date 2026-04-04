@@ -28,12 +28,12 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
   const containerId = options?.containerId ?? "ols-calendar-orb";
   const config = options?.config;
   const dayInfo = getLightDay(undefined, config);
-  const dayInYear = ((dayInfo.day - 1) % 365);
+  const dayInYear = ((dayInfo.day - 1) % 365) + 1;
 
   const container = document.getElementById(containerId);
   if (!container) return null;
 
-  const quarter = Math.ceil((dayInYear / 365) * 4) || 1;
+  const quarter = Math.ceil((dayInYear / 365) * 4);
 
   // Build ring markup
   const rings = [
