@@ -35,19 +35,75 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
 
   const quarter = Math.ceil((dayInYear / 365) * 4);
 
-  // Build ring markup
+  // Build ring markup without inline styles to remain compatible with strict CSP.
   const rings = [
-    { size: 260, color: "rgba(82,196,26,0.28)", speed: "14s", dir: "cw" },
-    { size: 200, color: "rgba(255,215,0,0.35)", speed: "9s", dir: "ccw" },
-    { size: 148, color: "rgba(82,196,26,0.5)", speed: "5s", dir: "cw" },
-    { size: 100, color: "rgba(255,215,0,0.65)", speed: "3s", dir: "ccw" },
+    {
+      size: 260,
+      color: "rgba(82,196,26,0.28)",
+      speed: "14s",
+      dir: "cw",
+      from: "0 50 50",
+      to: "360 50 50",
+    },
+    {
+      size: 200,
+      color: "rgba(255,215,0,0.35)",
+      speed: "9s",
+      dir: "ccw",
+      from: "360 50 50",
+      to: "0 50 50",
+    },
+    {
+      size: 148,
+      color: "rgba(82,196,26,0.5)",
+      speed: "5s",
+      dir: "cw",
+      from: "0 50 50",
+      to: "360 50 50",
+    },
+    {
+      size: 100,
+      color: "rgba(255,215,0,0.65)",
+      speed: "3s",
+      dir: "ccw",
+      from: "360 50 50",
+      to: "0 50 50",
+    },
   ];
 
   const ringsHtml = rings
-    .map(
-      (r) =>
-        `<div class="ols-orb-ring ols-orb-ring--${r.dir}" style="width:${r.size}px;height:${r.size}px;border-color:${r.color};animation-duration:${r.speed}"></div>`
-    )
+    .map((r) => {
+      const radius = 50 - 1;
+      return `
+        <svg
+          class="ols-orb-ring ols-orb-ring--${r.dir}"
+          width="${r.size}"
+          height="${r.size}"
+          viewBox="0 0 100 100"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle
+            cx="50"
+            cy="50"
+            r="${radius}"
+            fill="none"
+            stroke="${r.color}"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"
+          >
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="${r.from}"
+              to="${r.to}"
+              dur="${r.speed}"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>`;
+    })
     .join("");
 
   const centerContent = options?.centerImageUrl
