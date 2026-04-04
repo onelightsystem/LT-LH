@@ -68,10 +68,12 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 <!-- Light Hour Widget -->
 <div id="ols-lighttime-widget"></div>
 <script src="https://cdn.jsdelivr.net/npm/@olsystem/lt-lh/dist/widgets/ols-lighttime-widget.global.js"></script>
+<script>initLightTimeWidget();</script>
 
 <!-- Proper Day Widget -->
 <div id="ols-calendar-widget" data-start-date="2024-12-22"></div>
 <script src="https://cdn.jsdelivr.net/npm/@olsystem/lt-lh/dist/widgets/ols-calendar-widget.global.js"></script>
+<script>initCalendarWidget();</script>
 ```
 
 ## API Reference

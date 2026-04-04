@@ -33,8 +33,6 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
   const container = document.getElementById(containerId);
   if (!container) return null;
 
-  const quarter = Math.ceil((dayInYear / 365) * 4);
-
   // Four predefined ring variants — all values are hardcoded so no dynamic attribute
   // injection occurs. SVG presentation attributes (stroke, width, height) and SVG
   // animation attributes (dur) are part of the SVG/XML spec and are NOT CSS inline
@@ -75,7 +73,7 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
         </div>
         <div class="ols-orb-meta">
           <div class="ols-orb-day">${dayInYear}LD</div>
-          <div class="ols-orb-sub">Q${quarter} · ${dayInfo.year} · olsme.com</div>
+          <div class="ols-orb-sub">Q${dayInfo.quarter} · ${dayInfo.quarterLabel} · ${dayInfo.year} · olsme.com</div>
         </div>
         <button class="ols-orb-close" aria-label="Close calendar orb">&times;</button>
       </div>
