@@ -55,4 +55,6 @@ export function initCalendarWidget(options?: CalendarWidgetOptions): void {
 }
 
 // Expose for direct script usage (vanilla <script> tag)
-(window as unknown as Record<string, unknown>).initCalendarWidget = initCalendarWidget;
+if (typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).initCalendarWidget = initCalendarWidget;
+}
