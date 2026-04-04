@@ -29,11 +29,24 @@ export function createSolarDayArc(options?: SolarDayArcOptions) {
   if (!container) return null;
 
   const hourInfo = getLightHour();
-  const currentLh = hourInfo.hourIndex;
   const displayHour = hourInfo.lightTime;
-  const maxLh = 11;
-  const progressPct = Math.min(100, Math.round((currentLh / maxLh) * 100));
 
+  function parseLightHourNumber(lightTime: string): number | null {
+    const match = lightTime.match(/^\s*(\d{1,2})\s*LH\s*$/i);
+    if (!match) return null;
+
+    const lightHour = Number(match[1]);
+    return lightHour >= 1 && lightHour <= 12 ? lightHour : null;
+  }
+
+  const currentLh = hourInfo.isLightHour
+    ? parseLightHourNumber(displayHour)
+    : null;
+  const maxLh = 12;
+  const progressPct =
+    currentLh !== null
+      ? Math.min(100, Math.round((currentLh / maxLh) * 100))
+      : 0;
   const steps: ArcStep[] = [
     { label: "1LH", desc: "Dawn", active: false },
     { label: displayHour, desc: "Now", active: true },
