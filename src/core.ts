@@ -57,15 +57,17 @@ export function getLightDay(
   const epochStr = config?.epochDate ?? DEFAULT_EPOCH;
   const lightYearBase = config?.lightYearBase ?? DEFAULT_LIGHT_YEAR_BASE;
 
-  const epoch = new Date(epochStr);
+  // Parse epochStr as local calendar date to avoid UTC ±1 day shift from YYYY-MM-DD parsing
+  const [ey, em, ed] = epochStr.split("-").map(Number);
   const target = date ?? new Date();
 
-  // Reset to midnight for consistent day diff
-  const epochMidnight = new Date(epoch.getFullYear(), epoch.getMonth(), epoch.getDate());
-  const targetMidnight = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+  // Use Date.UTC day numbers (integer days since Unix epoch in UTC) to diff calendar days.
+  // Extracting local Y/M/D from `target` and feeding into Date.UTC eliminates DST 23/25-hour days.
+  const epochDayNum = Date.UTC(ey, (em ?? 1) - 1, ed ?? 1) / 86400000;
+  const targetDayNum =
+    Date.UTC(target.getFullYear(), target.getMonth(), target.getDate()) / 86400000;
 
-  const diffMs = targetMidnight.getTime() - epochMidnight.getTime();
-  const day = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
+  const day = Math.floor(targetDayNum - epochDayNum) + 1;
 
   // Quarter boundaries: Q1 = 1-84, Q2 = 85-176, Q3 = 177-267, Q4 = 268-365
   const dayInYear = ((day - 1) % 365) + 1;
