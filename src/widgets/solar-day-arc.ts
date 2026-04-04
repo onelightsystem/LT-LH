@@ -1,4 +1,4 @@
-// @onelightsystem/light-time — Solar Day Arc modal (vanilla DOM)
+// @olsystem/lt-lh — Solar Day Arc modal (vanilla DOM)
 // Renders an LH progress arc showing how far through the solar day the user is.
 // CSP-friendly: uses CSS classes only, no eval().
 
