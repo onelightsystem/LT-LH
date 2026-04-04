@@ -18,7 +18,7 @@ const SNIPPET_LH_LD = `import { useLightTime } from "@olsystem/lt-lh";
 
 const MyComponent = () => {
   const { hour, day } = useLightTime();
-  const dayInYear = (day.day - 1) % 365;
+  const dayInYear = ((day.day - 1) % 365) + 1;
   return (
     <div>
       <span>{hour.lightTime}</span>
