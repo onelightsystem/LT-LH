@@ -1,6 +1,6 @@
 // OLS Light Time Widget – v1.1 (standalone, no framework required)
-// @onelightsystem/light-time/widgets/light-time
-// License: MIT — https://github.com/onelightsystem/light-time
+// @olsystem/lt-lh/widgets/light-time
+// License: MIT — https://github.com/onelightsystem/LT-LH
 // CSP-friendly: no inline styles injected via JS, no eval()
 
 /** Light Time labels indexed by 24h clock (0 = midnight, 23 = 11 PM) */
