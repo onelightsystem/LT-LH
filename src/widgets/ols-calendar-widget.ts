@@ -1,6 +1,6 @@
 // OLS Sun Light Calendar Widget – v2.1 (standalone, no framework required)
-// @onelightsystem/light-time/widgets/calendar
-// License: MIT — https://github.com/onelightsystem/light-time
+// @olsystem/lt-lh/widgets/calendar
+// License: MIT — https://github.com/olsystem/lt-lh
 // CSP-friendly: no inline styles via JS, no eval()
 
 const DEFAULT_EPOCH = "2024-12-22";
