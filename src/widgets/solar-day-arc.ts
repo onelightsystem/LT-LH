@@ -125,4 +125,6 @@ export function createSolarDayArc(options?: SolarDayArcOptions) {
 }
 
 // Expose for vanilla script usage
-(window as unknown as Record<string, unknown>).createSolarDayArc = createSolarDayArc;
+if (typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).createSolarDayArc = createSolarDayArc;
+}
