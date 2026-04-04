@@ -77,8 +77,9 @@ describe("getLightDay", () => {
   });
 
   it("epochDate string is parsed as local calendar date (timezone-safe)", () => {
-    // Verify epochDate in config is split on '-' and fed into Date.UTC,
-    // so "2024-12-22" never shifts ±1 day regardless of runtime timezone.
+    // Both the date arg (local midnight via new Date(y,m-1,d)) and the epochDate
+    // string ("2024-12-22" split on '-') resolve to Dec 22, so day must be 1
+    // regardless of runtime timezone.
     const epochLocal = new Date(2024, 11, 22); // Dec 22, 2024 local midnight
     const result = getLightDay(epochLocal, { epochDate: "2024-12-22" });
     expect(result.day).toBe(1);
