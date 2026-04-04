@@ -31,22 +31,38 @@ export function createSolarDayArc(options?: SolarDayArcOptions) {
   const hourInfo = getLightHour();
   const displayHour = hourInfo.lightTime;
 
-  function parseLightHourNumber(lightTime: string): number | null {
-    const match = lightTime.match(/^\s*(\d{1,2})\s*LH\s*$/i);
+  function parseSolarHourNumber(
+    lightTime: string,
+    suffix: "LH" | "DH"
+  ): number | null {
+    const match = lightTime.match(
+      new RegExp(`^\\s*(\\d{1,2})\\s*${suffix}\\s*$`, "i")
+    );
     if (!match) return null;
 
-    const lightHour = Number(match[1]);
-    return lightHour >= 1 && lightHour <= 12 ? lightHour : null;
+    const solarHour = Number(match[1]);
+    return solarHour >= 1 && solarHour <= 12 ? solarHour : null;
   }
 
-  const currentLh = hourInfo.isLightHour
-    ? parseLightHourNumber(displayHour)
-    : null;
-  const maxLh = 12;
-  const progressPct =
-    currentLh !== null
-      ? Math.min(100, Math.round((currentLh / maxLh) * 100))
-      : 0;
+  function getSolarDayProgressPct(): number {
+    const maxLh = 12;
+
+    if (hourInfo.isLightHour) {
+      const currentLh = parseSolarHourNumber(displayHour, "LH");
+      return currentLh !== null
+        ? Math.min(100, Math.round((currentLh / maxLh) * 100))
+        : 0;
+    }
+
+    const currentDh = parseSolarHourNumber(displayHour, "DH");
+    if (currentDh === null) return 0;
+
+    // Dark hours 1DH-6DH are after dusk (solar day completed),
+    // while 7DH-12DH are before dawn (next solar day not started yet).
+    return currentDh <= 6 ? 100 : 0;
+  }
+
+  const progressPct = getSolarDayProgressPct();
   const steps: ArcStep[] = [
     { label: "1LH", desc: "Dawn", active: false },
     { label: displayHour, desc: "Now", active: true },
