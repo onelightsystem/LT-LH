@@ -81,7 +81,9 @@ export function createSolarDayArc(options?: SolarDayArcOptions) {
         <div class="ols-arc-steps">${stepsHtml}</div>
         <div class="ols-arc-track">
           <div class="ols-arc-track-bg"></div>
-          <div class="ols-arc-track-fill" style="width:${progressPct}%"></div>
+          <progress class="ols-arc-track-fill" max="100" value="${progressPct}" aria-label="Daylight complete">
+            ${progressPct}% of daylight complete
+          </progress>
           <div class="ols-arc-track-labels">
             <span>Sunrise</span><span>Midday</span><span>Sunset</span>
           </div>
