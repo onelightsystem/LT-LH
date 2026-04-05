@@ -34,7 +34,7 @@ This policy applies to:
 ## Security Practices
 
 - **No `eval()` or `new Function()`** — fully CSP-friendly
-- **No inline style injection via JavaScript** — all styles are in dedicated `.css` files
+- **No inline style injection via JavaScript** — the package does not ship widget `.css` files; consumers provide any required CSS
 - **Input validation** — Zod schemas enforce Light Time format and coordinate bounds
 - **No network calls** — purely computational (no fetch, XHR, WebSocket, etc.)
 - **Zero secrets or tokens** — requires no credentials or environment variables
