@@ -59,10 +59,14 @@ export function getLightDay(
 
   // Parse epochStr as local calendar date to avoid UTC ±1 day shift from YYYY-MM-DD parsing.
   // Using Number() + isNaN guards ensures malformed epoch strings fall back to the default epoch.
+  const defaultParts = DEFAULT_EPOCH.split("-").map(Number);
   const parts = epochStr.split("-").map(Number);
-  const ey = !isNaN(parts[0]!) ? parts[0]! : 2024;
-  const em = !isNaN(parts[1]!) ? parts[1]! : 12;
-  const ed = !isNaN(parts[2]!) ? parts[2]! : 22;
+  const defaultEy = defaultParts[0]!;
+  const defaultEm = defaultParts[1]!;
+  const defaultEd = defaultParts[2]!;
+  const ey = !isNaN(parts[0]!) ? parts[0]! : defaultEy;
+  const em = !isNaN(parts[1]!) ? parts[1]! : defaultEm;
+  const ed = !isNaN(parts[2]!) ? parts[2]! : defaultEd;
   const target = date ?? new Date();
 
   // Use Date.UTC day numbers (integer days since Unix epoch in UTC) to diff calendar days.
