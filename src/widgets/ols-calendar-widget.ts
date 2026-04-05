@@ -54,7 +54,21 @@ export function initCalendarWidget(options?: CalendarWidgetOptions): void {
     "</a>";
 }
 
-// Expose for direct script usage (vanilla <script> tag)
-if (typeof window !== "undefined") {
+function shouldExposeCalendarWidgetGlobally(): boolean {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return false;
+  }
+
+  const currentScript = document.currentScript;
+  if (!(currentScript instanceof HTMLScriptElement)) {
+    return false;
+  }
+
+  return currentScript.type !== "module";
+}
+
+// Expose for direct script usage (vanilla <script> tag) without adding
+// a global side effect for ESM/module consumers.
+if (shouldExposeCalendarWidgetGlobally()) {
   (window as unknown as Record<string, unknown>).initCalendarWidget = initCalendarWidget;
 }
