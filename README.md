@@ -131,8 +131,8 @@ interface LightTimeConfig {
 ## Browser Support
 
 - Modern browsers (Chrome 80+, Firefox 78+, Safari 14+, Edge 80+)
-- Vanilla widgets work in any browser supporting ES5
-- No `eval()` and no network calls; note that some vanilla widgets currently use inline `style` attributes, so strict CSP deployments may require `style-src 'unsafe-inline'`
+- Vanilla widgets are intended for the same modern browser baseline; ES5 output is not currently guaranteed by the build configuration
+- No `eval()` and no network calls; the shipped vanilla widgets do not rely on inline `style` attributes, so they do not require `style-src 'unsafe-inline'` on that basis
 
 ## For Everyone
 
