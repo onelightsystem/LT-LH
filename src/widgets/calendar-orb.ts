@@ -1,4 +1,4 @@
-// @onelightsystem/light-time — Calendar Orb modal (vanilla DOM)
+// @olsystem/lt-lh — Calendar Orb modal (vanilla DOM)
 // Renders concentric animated rings around a Light Day number.
 // CSP-friendly: uses CSS classes only, no eval().
 
