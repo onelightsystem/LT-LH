@@ -57,20 +57,21 @@ export function getLightDay(
   const epochStr = config?.epochDate ?? DEFAULT_EPOCH;
   const lightYearBase = config?.lightYearBase ?? DEFAULT_LIGHT_YEAR_BASE;
 
-  const [epochYear, epochMonth, epochDay] = epochStr.split("-").map(Number);
+  // Parse epochStr as local calendar date to avoid UTC ±1 day shift from YYYY-MM-DD parsing.
+  // Using Number() + isNaN guards ensures malformed epoch strings fall back to the default epoch.
+  const parts = epochStr.split("-").map(Number);
+  const ey = !isNaN(parts[0]!) ? parts[0]! : 2024;
+  const em = !isNaN(parts[1]!) ? parts[1]! : 12;
+  const ed = !isNaN(parts[2]!) ? parts[2]! : 22;
   const target = date ?? new Date();
 
-  // Use UTC calendar dates to avoid timezone shifts from parsing YYYY-MM-DD
-  // and DST-related off-by-one errors when dividing by milliseconds per day.
-  const epochUtcMidnight = Date.UTC(epochYear, epochMonth - 1, epochDay);
-  const targetUtcMidnight = Date.UTC(
-    target.getFullYear(),
-    target.getMonth(),
-    target.getDate()
-  );
+  // Use Date.UTC day numbers (integer days since Unix epoch in UTC) to diff calendar days.
+  // Extracting local Y/M/D from `target` and feeding into Date.UTC eliminates DST 23/25-hour days.
+  const epochDayNum = Date.UTC(ey, em - 1, ed) / 86400000;
+  const targetDayNum =
+    Date.UTC(target.getFullYear(), target.getMonth(), target.getDate()) / 86400000;
 
-  const diffMs = targetUtcMidnight - epochUtcMidnight;
-  const day = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
+  const day = Math.floor(targetDayNum - epochDayNum) + 1;
 
   // Quarter boundaries: Q1 = 1-84, Q2 = 85-176, Q3 = 177-267, Q4 = 268-365
   const dayInYear = ((day - 1) % 365) + 1;
