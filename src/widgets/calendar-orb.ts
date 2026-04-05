@@ -108,8 +108,3 @@ export function createCalendarOrb(options?: CalendarOrbOptions) {
     dayInYear,
   };
 }
-
-// Expose for vanilla script usage
-if (typeof window !== "undefined") {
-  (window as unknown as Record<string, unknown>).createCalendarOrb = createCalendarOrb;
-}
