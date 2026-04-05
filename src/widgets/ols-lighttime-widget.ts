@@ -3,6 +3,9 @@
 // License: MIT — https://github.com/onelightsystem/LT-LH
 // CSP-friendly: no inline styles injected via JS, no eval()
 
+/** Injected at build time: true in the IIFE/global bundle, false in the ESM bundle. */
+declare const __OLS_IIFE_BUILD__: boolean;
+
 /** Light Time labels indexed by 24h clock (0 = midnight, 23 = 11 PM) */
 const lightTimeMap: readonly string[] = [
   "7dh", "8dh", "9dh", "10dh", "11dh", "12dh",   // 12AM-5AM
@@ -38,17 +41,28 @@ export interface LightTimeWidgetOptions {
   linkUrl?: string;
 }
 
+/** Handle returned by {@link initLightTimeWidget} — call `destroy()` to stop the widget. */
+export interface LightTimeWidgetHandle {
+  /** Clears the refresh interval and empties the container. */
+  destroy(): void;
+}
+
 /**
  * Initialize the OLS Light Time vanilla widget inside a given container.
  * Renders the current Light Hour / dark hour toggle with auto-refresh.
+ *
+ * Returns a handle with a `destroy()` method to stop the interval and clean up,
+ * or `null` if the container element was not found.
  */
-export function initLightTimeWidget(options?: LightTimeWidgetOptions): void {
+export function initLightTimeWidget(
+  options?: LightTimeWidgetOptions
+): LightTimeWidgetHandle | null {
   const containerId = options?.containerId ?? "ols-lighttime-widget";
   const refreshInterval = options?.refreshInterval ?? 60_000;
   const linkUrl = options?.linkUrl ?? "https://www.olsme.com/OLSCalendarTime";
 
   const container = document.getElementById(containerId);
-  if (!container) return;
+  if (!container) return null;
 
   function render(): void {
     if (!container) return;
@@ -67,10 +81,17 @@ export function initLightTimeWidget(options?: LightTimeWidgetOptions): void {
   }
 
   render();
-  setInterval(render, refreshInterval);
+  const intervalId = setInterval(render, refreshInterval);
+
+  return {
+    destroy(): void {
+      clearInterval(intervalId);
+      container.innerHTML = "";
+    },
+  };
 }
 
-// Expose for direct script usage (vanilla <script> tag) in browser environments.
-if (typeof window !== "undefined") {
+// Expose for direct script usage (vanilla <script> tag); tree-shaken out of ESM builds.
+if (__OLS_IIFE_BUILD__) {
   (window as unknown as Record<string, unknown>).initLightTimeWidget = initLightTimeWidget;
 }

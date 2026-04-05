@@ -26,6 +26,9 @@ export default defineConfig([
     sourcemap: true,
     clean: false,
     treeshake: true,
+    define: {
+      __OLS_IIFE_BUILD__: "false",
+    },
   },
   // Vanilla widgets — IIFE for <script> tags (all deps bundled for standalone use)
   {
@@ -43,5 +46,8 @@ export default defineConfig([
     clean: false,
     treeshake: true,
     noExternal: [/.*/],
+    define: {
+      __OLS_IIFE_BUILD__: "true",
+    },
   },
 ]);
