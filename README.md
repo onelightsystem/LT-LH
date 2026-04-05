@@ -76,6 +76,8 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 <script>initCalendarWidget();</script>
 ```
 
+> **Styling note:** No CSS is shipped with this package. The widgets render semantic HTML with BEM-style class names (`ols-lighttime-*`, `ols-calendar-*`, `ols-orb-*`, `ols-arc-*`). Your host page must provide the styles for these class names.
+
 ## API Reference
 
 | Function | Description |
