@@ -1,9 +1,9 @@
-# Security Policy — @onelightsystem/light-time
+# Security Policy — @olsystem/lt-lh
 
 ## Supported Versions
 
 | Version | Supported          |
-| ------- | ------------------ |
+|---------|--------------------|
 | 0.1.x   | :white_check_mark: |
 
 ## Reporting a Vulnerability
@@ -13,7 +13,7 @@
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Do NOT open a public GitHub issue.**
-2. Email the OLS security team at the address listed on [olsme.com/Contact](https://www.olsme.com/Contact).
+2. Email the OLS security team via the contact form at [https://www.olsme.com/Contact](https://www.olsme.com/Contact).
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
@@ -26,25 +26,26 @@ We aim to acknowledge reports within **48 hours** and provide a fix or mitigatio
 
 This policy applies to:
 
-- The `@onelightsystem/light-time` npm package (published code in `dist/`)
-- Vanilla JS widgets (`ols-lighttime-widget.js`, `ols-calendar-widget.js`)
+- The `@olsystem/lt-lh` npm package (all published code in `dist/`)
+- Vanilla JS widgets (`ols-lighttime-widget`, `ols-calendar-widget`, `calendar-orb`, `solar-day-arc`)
 - React hook and core logic (`useLightTime`, `getLightHour`, `getLightDay`)
+- All TypeScript source and built outputs
 
 ## Security Practices
 
-- **No `eval()` or `Function()` constructors** — all code is CSP-friendly
-- **No inline style injection via JS** — all styles are in dedicated `.css` files
-- **Input validation** — Zod schemas enforce lat/lng bounds and Light Time format
-- **No network calls** — this package is purely computational (no fetch, XHR, or WebSocket)
-- **No secrets or tokens** — this package requires zero credentials
+- **No `eval()` or `new Function()`** — fully CSP-friendly
+- **No inline style injection via JavaScript** — the package does not ship widget `.css` files; consumers provide any required CSS
+- **Input validation** — Zod schemas enforce Light Time format and coordinate bounds
+- **No network calls** — purely computational (no fetch, XHR, WebSocket, etc.)
+- **Zero secrets or tokens** — requires no credentials or environment variables
 - **Strict TypeScript** — compiled with `strict: true` and `noUncheckedIndexedAccess`
-- **Dependency minimalism** — only `zod` as a runtime dependency
+- **Minimal dependencies** — only `zod` as runtime dependency (~13 KB)
 
 ## Content Security Policy (CSP)
 
 This package is designed to work under strict CSP headers:
 
-```
+```http
 Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self';
 ```
 
@@ -52,4 +53,4 @@ No `unsafe-inline` or `unsafe-eval` is required.
 
 ---
 
-OneLightSystem OLS · Belmont, CA · [olsme.com](https://www.olsme.com)
+OneLightSystem OLS · [olsme.com](https://www.olsme.com)
