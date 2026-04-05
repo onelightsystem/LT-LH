@@ -70,7 +70,13 @@ export function initLightTimeWidget(options?: LightTimeWidgetOptions): void {
   setInterval(render, refreshInterval);
 }
 
-// Expose for direct script usage (vanilla <script> tag)
-if (typeof window !== "undefined") {
+declare const __OLS_IIFE_BUILD__: boolean | undefined;
+
+// Expose for direct script usage (vanilla <script> tag) only in the IIFE/global build.
+if (
+  typeof window !== "undefined" &&
+  typeof __OLS_IIFE_BUILD__ !== "undefined" &&
+  __OLS_IIFE_BUILD__
+) {
   (window as unknown as Record<string, unknown>).initLightTimeWidget = initLightTimeWidget;
 }
