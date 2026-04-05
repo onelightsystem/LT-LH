@@ -45,6 +45,9 @@ export default defineConfig([
     sourcemap: true,
     clean: false,
     treeshake: true,
+    define: {
+      __OLS_IIFE_BUILD__: "true",
+    },
     noExternal: [/.*/],
     define: {
       __OLS_IIFE_BUILD__: "true",
