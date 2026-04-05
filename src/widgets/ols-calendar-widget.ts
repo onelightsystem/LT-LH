@@ -39,10 +39,11 @@ export function initCalendarWidget(options?: CalendarWidgetOptions): void {
   if (!container) return;
 
   const startStr = container.getAttribute("data-start-date") ?? options?.epochDate ?? DEFAULT_EPOCH;
-  const startDate = new Date(startStr);
-  const today = new Date();
-  const timeDiff = today.getTime() - startDate.getTime();
-  const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+  const [sy, sm, sd] = startStr.split("-").map(Number);
+  const now = new Date();
+  const todayUtcDay = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000;
+  const startUtcDay = Date.UTC(sy!, sm! - 1, sd!) / 86400000;
+  const daysDiff = Math.floor(todayUtcDay - startUtcDay) + 1;
 
   container.innerHTML =
     `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer" ` +
