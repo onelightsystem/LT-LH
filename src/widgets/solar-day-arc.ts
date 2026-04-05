@@ -139,8 +139,3 @@ export function createSolarDayArc(options?: SolarDayArcOptions) {
     progressPct,
   };
 }
-
-// Expose for vanilla script usage
-if (typeof window !== "undefined") {
-  (window as unknown as Record<string, unknown>).createSolarDayArc = createSolarDayArc;
-}
