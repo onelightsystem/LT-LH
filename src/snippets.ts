@@ -1,4 +1,4 @@
-// @onelightsystem/light-time — TypeScript snippet generator
+// @olsystem/lt-lh — TypeScript snippet generator
 // Produces copy-ready code examples for LH-only or LH+LD usage.
 
 export type SnippetMode = "lh" | "lh+ld";
