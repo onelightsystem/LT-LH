@@ -33,21 +33,18 @@ export default defineConfig([
   // Vanilla widgets — IIFE for <script> tags (all deps bundled for standalone use)
   {
     entry: {
-      "widgets/ols-lighttime-widget.global":
-        "src/widgets/ols-lighttime-widget.ts",
-      "widgets/ols-calendar-widget.global": "src/widgets/ols-calendar-widget.ts",
-      "widgets/calendar-orb.global": "src/widgets/calendar-orb.ts",
-      "widgets/solar-day-arc.global": "src/widgets/solar-day-arc.ts",
+      "widgets/ols-lighttime-widget": "src/widgets/ols-lighttime-widget.ts",
+      "widgets/ols-calendar-widget": "src/widgets/ols-calendar-widget.ts",
+      "widgets/calendar-orb": "src/widgets/calendar-orb.ts",
+      "widgets/solar-day-arc": "src/widgets/solar-day-arc.ts",
     },
     format: ["iife"],
+    outExtension: () => ({ js: ".global.js" }),
     dts: false,
     splitting: false,
     sourcemap: true,
     clean: false,
     treeshake: true,
-    define: {
-      __OLS_IIFE_BUILD__: "true",
-    },
     noExternal: [/.*/],
     define: {
       __OLS_IIFE_BUILD__: "true",

@@ -76,7 +76,7 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 <script>initCalendarWidget();</script>
 ```
 
-> **Styling note:** No CSS is shipped with this package. The widgets render semantic HTML with BEM-style class names (`ols-lighttime-*`, `ols-calendar-*`, `ols-orb-*`, `ols-arc-*`). Your host page must provide the styles for these class names.
+> **Styling:** A default stylesheet is shipped at `@olsystem/lt-lh/widgets/ols-widgets.css`. Import it or add a `<link>` to get the baseline OLS dark-theme appearance. All class names use the `ols-*` BEM namespace and can be overridden in your own CSS.
 
 ## API Reference
 
@@ -100,6 +100,20 @@ interface LightTimeConfig {
   refreshInterval?: number; // Default: 60000 (ms)
 }
 ```
+
+## New in v0.1.3
+
+- Default widget stylesheet shipped (`ols-widgets.css`) — import once for baseline OLS colors
+- Calendar widget now shows `106LD` format instead of `Day 106`
+- Light Day calculation fixed — correctly displays day within the current Light Year (modulo 365)
+- IIFE build naming fixed (no more double `.global.global.js` suffix)
+- Repository includes `demo.html` for standalone preview without a host app
+
+### Roadmap
+
+- Personal development AI integration into Global ID ethical rating
+- Real Human Database verification layer — on-chain identity anchored to Sun Light Calendar epochs
+- Deeper widget interactivity: auth flows, check-in tracking, and developer root access directly from toggles
 
 ## New in v0.1.2
 

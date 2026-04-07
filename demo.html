@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@olsystem/lt-lh — Widget Demo</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "zod": "https://esm.sh/zod@4"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="./dist/widgets/ols-widgets.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0d0d0d;
+      color: #e8e8e8;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 { font-size: 1.1rem; color: #ffcc00; margin-bottom: 0.25rem; font-weight: 600; }
+    .subtitle { font-size: 0.8rem; color: #666; margin-bottom: 2.5rem; }
+
+    .row { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem; }
+
+    .card {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .card-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Standalone toggles */
+    .toggles {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .toggles .ols-lighttime-link,
+    .toggles .ols-calendar-link {
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      gap: 0.5rem;
+    }
+    .toggles .ols-lighttime-toggle {
+      font-size: 1.5rem;
+    }
+    .toggles .ols-calendar-day {
+      font-size: 1.5rem;
+    }
+    .toggles .ols-lighttime-sun,
+    .toggles .ols-calendar-sun {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Orb and arc containers need fixed dimensions in the demo */
+    #ols-calendar-orb { width: 300px; min-height: 300px; }
+    #ols-solar-day-arc { width: 320px; }
+
+    /* Toggle wrap + dropdown menus */
+    .toggle-wrap {
+      position: relative;
+    }
+    .toggle-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      z-index: 50;
+      flex-direction: column;
+      gap: 0;
+    }
+    .toggle-menu.open {
+      display: flex;
+    }
+    .toggle-menu-item {
+      display: block;
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 0.78rem;
+      font-weight: 400;
+      text-decoration: none;
+      padding: 0.2rem 0;
+      cursor: pointer;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .toggle-menu-item:hover {
+      color: #e8e8e8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>@olsystem/lt-lh — Widget Demo</h1>
+  <p class="subtitle">Serve with <code>npx serve .</code> (ES modules require a local server)</p>
+
+  <!-- Standalone toggles -->
+  <div class="toggles">
+    <div class="toggle-wrap" id="lh-wrap">
+      <div id="ols-lighttime-widget"></div>
+      <div class="toggle-menu" id="lh-menu">
+        <a href="https://www.olsme.com/login" class="toggle-menu-item">auth</a>
+        <a href="https://www.olsme.com/checkin" class="toggle-menu-item">check in</a>
+      </div>
+    </div>
+    <div class="toggle-wrap" id="ld-wrap">
+      <div id="ols-calendar-widget"></div>
+      <div class="toggle-menu" id="ld-menu">
+        <a href="https://www.olsme.com/login" class="toggle-menu-item">auth</a>
+        <a href="https://www.olsme.com/ols-developer" class="toggle-menu-item">roots</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full widgets -->
+  <div class="row">
+    <div class="card">
+      <div class="card-label">Calendar Orb</div>
+      <div id="ols-calendar-orb"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Solar Day Arc</div>
+      <div id="ols-solar-day-arc"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initLightTimeWidget } from './dist/widgets/ols-lighttime-widget.js';
+    import { initCalendarWidget }   from './dist/widgets/ols-calendar-widget.js';
+    import { createCalendarOrb }    from './dist/widgets/calendar-orb.js';
+    import { createSolarDayArc }    from './dist/widgets/solar-day-arc.js';
+
+    initLightTimeWidget();
+    initCalendarWidget();
+    createCalendarOrb();
+    createSolarDayArc();
+
+    // Toggle menus on click
+    function setupToggleMenu(wrapId, menuId) {
+      const wrap = document.getElementById(wrapId);
+      const menu = document.getElementById(menuId);
+      if (!wrap || !menu) return;
+
+      wrap.addEventListener('click', (e) => {
+        // Don't toggle if clicking a menu link
+        if (e.target.closest('.toggle-menu-item')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        // Close the other menu
+        document.querySelectorAll('.toggle-menu.open').forEach(m => {
+          if (m !== menu) m.classList.remove('open');
+        });
+        menu.classList.toggle('open');
+      });
+    }
+
+    setupToggleMenu('lh-wrap', 'lh-menu');
+    setupToggleMenu('ld-wrap', 'ld-menu');
+
+    // Close menus when clicking outside
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.toggle-menu.open').forEach(m => m.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>

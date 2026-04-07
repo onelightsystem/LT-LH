@@ -1,6 +1,6 @@
 {
   "name": "@olsystem/lt-lh",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "OLS Sun Light Time system — Light Hour (LH) / dark hour (dh) conversion, Proper Day counter, and embeddable widgets for the OneLightSystem Light Calendar.",
   "keywords": [
     "ols",
@@ -50,15 +50,19 @@
       "import": "./dist/widgets/solar-day-arc.js",
       "types": "./dist/widgets/solar-day-arc.d.ts",
       "default": "./dist/widgets/solar-day-arc.global.js"
-    }
+    },
+    "./widgets/ols-widgets.css": "./dist/widgets/ols-widgets.css"
   },
+  "sideEffects": [
+    "./dist/widgets/**/*.css"
+  ],
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node -e \"require('fs').copyFileSync('src/widgets/ols-widgets.css', 'dist/widgets/ols-widgets.css')\"",
     "build:widgets": "echo 'Widgets built by tsup'",
     "lint": "eslint src/",
     "test": "vitest run",
@@ -102,7 +106,8 @@
   },
   "sideEffects": [
     "./dist/widgets/**/*.js",
-    "./dist/widgets/**/*.cjs"
+    "./dist/widgets/**/*.cjs",
+    "./dist/widgets/**/*.css"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

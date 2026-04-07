@@ -1,0 +1,322 @@
+/**
+ * @olsystem/lt-lh — Default widget stylesheet
+ *
+ * Import this once in your app (or via <link>) to get the baseline
+ * OLS visual appearance. All class names use the ols-* BEM namespace.
+ * Override any rule in your own CSS after this import.
+ *
+ * Color tokens (used throughout):
+ *   Gold (LH / sun)  : #ffcc00
+ *   Green (LD / orb) : #52c41a
+ *   Blue (dh / night): #7aa8d4
+ *   Dark bg          : #161616
+ *   Card border      : #2a2a2a
+ */
+
+/* ─── Light Time Widget ─────────────────────────────────────────────────── */
+
+.ols-lighttime-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.ols-lighttime-link:hover {
+  border-color: #ffcc00;
+}
+
+.ols-lighttime-sun {
+  flex-shrink: 0;
+}
+
+.ols-lighttime-toggle {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ols-lighttime-toggle--lh {
+  color: #ffcc00;
+}
+
+.ols-lighttime-toggle--dh {
+  color: #7aa8d4;
+}
+
+/* ─── Calendar (Proper Day) Widget ──────────────────────────────────────── */
+
+.ols-calendar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.ols-calendar-link:hover {
+  border-color: #52c41a;
+}
+
+.ols-calendar-sun {
+  flex-shrink: 0;
+}
+
+.ols-calendar-day {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #52c41a;
+}
+
+/* ─── Calendar Orb ──────────────────────────────────────────────────────── */
+
+.ols-orb-backdrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.ols-orb-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+  height: 260px;
+}
+
+/* Ring SVGs are absolutely centred on the container */
+.ols-orb-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ols-orb-core {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ols-orb-center-text {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffcc00;
+  text-shadow: 0 0 14px rgba(255, 204, 0, 0.55);
+}
+
+.ols-orb-center-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.ols-orb-meta {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.ols-orb-day {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffcc00;
+}
+
+.ols-orb-sub {
+  font-size: 0.7rem;
+  color: #555;
+  margin-top: 0.2rem;
+}
+
+.ols-orb-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 50%;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.ols-orb-close:hover {
+  color: #e8e8e8;
+  border-color: #888;
+}
+
+.ols-orb-hint {
+  font-size: 0.65rem;
+  color: #333;
+  margin-top: 0.4rem;
+}
+
+/* ─── Solar Day Arc ─────────────────────────────────────────────────────── */
+
+.ols-arc-backdrop {
+  /* In modal usage wrap this in a fixed overlay in the host app */
+}
+
+.ols-arc-box {
+  position: relative;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+}
+
+.ols-arc-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.ols-arc-close:hover {
+  color: #e8e8e8;
+}
+
+.ols-arc-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffcc00;
+  margin-bottom: 0.3rem;
+}
+
+.ols-arc-pct {
+  font-size: 0.72rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.ols-arc-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.ols-arc-step {
+  text-align: center;
+}
+
+.ols-arc-step-bubble {
+  display: inline-block;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.ols-arc-step--active .ols-arc-step-bubble {
+  background: #1a1200;
+  border-color: #ffcc00;
+  color: #ffcc00;
+}
+
+.ols-arc-step-label {
+  display: block;
+  font-size: 0.62rem;
+  color: #444;
+  margin-top: 0.2rem;
+}
+
+.ols-arc-track {
+  margin-bottom: 0.8rem;
+}
+
+.ols-arc-track-bg {
+  height: 6px;
+  background: #2a2a2a;
+  border-radius: 3px;
+  margin-bottom: 0.3rem;
+}
+
+/* <progress> element — reset and style cross-browser */
+.ols-arc-track-fill {
+  display: block;
+  width: 100%;
+  height: 6px;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 0.3rem;
+  background: #2a2a2a; /* track fallback */
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ols-arc-track-fill::-webkit-progress-bar {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+
+.ols-arc-track-fill::-webkit-progress-value {
+  background: linear-gradient(90deg, #ff8c00, #ffcc00);
+  border-radius: 3px;
+}
+
+.ols-arc-track-fill::-moz-progress-bar {
+  background: linear-gradient(90deg, #ff8c00, #ffcc00);
+  border-radius: 3px;
+}
+
+.ols-arc-track-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  color: #444;
+}
+
+.ols-arc-advice {
+  font-size: 0.78rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.ols-arc-advice-hour {
+  font-weight: 700;
+  color: #ffcc00;
+}
+
+.ols-arc-hint {
+  font-size: 0.62rem;
+  color: #333;
+}
