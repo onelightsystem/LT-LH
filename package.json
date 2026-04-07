@@ -59,7 +59,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup && cp src/widgets/ols-widgets.css dist/widgets/ols-widgets.css",
+    "build": "tsup && node -e \"require('fs').copyFileSync('src/widgets/ols-widgets.css', 'dist/widgets/ols-widgets.css')\"",
     "build:widgets": "echo 'Widgets built by tsup'",
     "lint": "eslint src/",
     "test": "vitest run",
