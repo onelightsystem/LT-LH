@@ -107,8 +107,7 @@ interface LightTimeConfig {
 - Calendar widget now shows `106LD` format instead of `Day 106`
 - Light Day calculation fixed — correctly displays day within the current Light Year (modulo 365)
 - IIFE build naming fixed (no more double `.global.global.js` suffix)
-- Toggle click menus — LH toggle opens auth / check-in, LD toggle opens auth / roots
-- `demo.html` included for standalone preview without a host app
+- Repository includes `demo.html` for standalone preview without a host app
 
 ### Roadmap
 

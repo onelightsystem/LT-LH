@@ -41,12 +41,12 @@ export function initCalendarWidget(options?: CalendarWidgetOptions): void {
   const startStr = container.getAttribute("data-start-date") ?? options?.epochDate ?? DEFAULT_EPOCH;
   const [sy, sm, sd] = startStr.split("-").map(Number);
   const now = new Date();
-  const todayUtcDay = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000;
+  const todayUtcDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / 86400000;
   const startUtcDay = Date.UTC(sy!, sm! - 1, sd!) / 86400000;
   const totalDays = Math.floor(todayUtcDay - startUtcDay) + 1;
   // The OLS Sun Light Calendar intentionally uses a fixed 365-day cycle for LD
   // numbering, so Gregorian leap years do not alter the displayed day-in-cycle.
-  const dayInYear = ((totalDays - 1) % 365) + 1;
+  const dayInYear = ((((totalDays - 1) % 365) + 365) % 365) + 1;
 
   container.innerHTML =
     `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer" ` +

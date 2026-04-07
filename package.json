@@ -103,7 +103,8 @@
   },
   "sideEffects": [
     "./dist/widgets/**/*.js",
-    "./dist/widgets/**/*.cjs"
+    "./dist/widgets/**/*.cjs",
+    "./dist/widgets/**/*.css"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
