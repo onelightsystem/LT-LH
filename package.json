@@ -53,6 +53,9 @@
     },
     "./widgets/ols-widgets.css": "./dist/widgets/ols-widgets.css"
   },
+  "sideEffects": [
+    "./dist/widgets/**/*.css"
+  ],
   "files": [
     "dist",
     "README.md",
