@@ -11,8 +11,8 @@
 
 The **OLS Light Calendar** helps you align with the Sun's natural rhythm instead of arbitrary clock time.
 
-- **Light Hour (LH)**: 1LH–12LH = 6:00 AM to 5:00 PM (your natural daylight energy window)
-- **Dark Hour (dh)**: 1dh–12dh = 6:00 PM to 5:00 AM (rest and recovery window)
+- **Light Hour (LH)**: 1LH–13LH = 6:00 AM to 6:00 PM (your natural daylight energy window)
+- **Dark Hour (dh)**: 1dh–11dh = 7:00 PM to 5:00 AM (rest and recovery window, Q2.3)
 - **Light Day (LD)**: Day count since Winter Solstice (Dec 22, 2024)
 - **Light Year**: Currently 3406 (starting from the first known Sun Light Meditation)
 
@@ -82,14 +82,16 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 
 | Function | Description |
 |---|---|
-| `getLightHour(hourIndex?: number)` | Current Light Hour result |
-| `getLightDay(date?: Date, config?)` | Proper Day + quarter + year |
+| `getLightHour(hourIndex?, date?)` | Current Light Hour result (season-aware) |
+| `getLightDay(date?, config?)` | Proper Day + quarter + year |
 | `useLightTime(config?)` | React hook with auto-refresh (default 60s) |
-| `getLightTimeTable()` | Full 24-entry conversion table |
+| `getLightTimeTable(date?)` | Full 24-entry conversion table (season-aware) |
 | `formatLightTime(lightTime, verbose?)` | Format Light Time label for display |
 | `formatLightDay(info)` | Format day info for display |
 | `validateCoordinates(lat, lng)` | Validate lat/lng via Zod schema |
 | `generateSnippet(mode)` | Copy-ready TypeScript snippet (`"lh"` or `"lh+ld"`) |
+| `getActiveQuarter(date?)` | Returns active `QuarterKey` e.g. `"Q2.3"` |
+| `getTimeData(date?)` | Returns the season table for a given date |
 
 ### Types
 
@@ -100,6 +102,15 @@ interface LightTimeConfig {
   refreshInterval?: number; // Default: 60000 (ms)
 }
 ```
+
+## New in v0.2.3
+
+- **Seasonal table support** — `getLightHour()` and `getLightTimeTable()` now auto-select the correct season table based on the current date (Q2.2 / Q2.3)
+- **13LH season** — 6:00 PM is now `13LH` (not `1dh`) during Q2.2 and Q2.3; dark hours reduce to 11dh, midnight shifts to `6dh`
+- **Corrected Proper Day epoch** — `getLightDay()` now counts from Dec 23, 2025 (matching `olsme.com`); today (Apr 26, 2026) correctly returns **125LD**
+- **New public API** — `getActiveQuarter()`, `getTimeData(date?)`, `LIGHT_TIME_MAP_Q22`, `LIGHT_TIME_MAP_Q23`, `QuarterKey` type
+- **Date-aware overloads** — `getLightHour(hourIndex?, date?)` and `getLightTimeTable(date?)` accept an optional date for testing and historical queries
+- **`LIGHT_TIME_MAP` backward-compatible** — still exported; returns current season's table
 
 ## New in v0.1.2
 
@@ -126,9 +137,10 @@ interface LightTimeConfig {
 | 3:00 PM  | 15:00   | **10LH**   |
 | 4:00 PM  | 16:00   | **11LH**   |
 | 5:00 PM  | 17:00   | **12LH**   |
-| 6:00 PM  | 18:00   | 1dh        |
+| 6:00 PM  | 18:00   | **13LH**   |
+| 7:00 PM  | 19:00   | 1dh        |
 
-*(Full table available via `getLightTimeTable()`)*
+*(Full table available via `getLightTimeTable()`. Season tables: Q2.2 midnight=7dh · Q2.3 midnight=6dh)*
 
 ## Browser Support
 

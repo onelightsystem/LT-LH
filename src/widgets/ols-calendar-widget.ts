@@ -3,7 +3,7 @@
 // License: MIT — https://github.com/olsystem/lt-lh
 // CSP-friendly: no inline styles via JS, no eval()
 
-const DEFAULT_EPOCH = "2024-12-22";
+const DEFAULT_EPOCH = "2025-12-23";
 
 const sunSVG =
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ols-calendar-sun" aria-hidden="true">' +
@@ -21,7 +21,7 @@ const sunSVG =
 export interface CalendarWidgetOptions {
   /** Container element id. Default: "ols-calendar-widget" */
   containerId?: string;
-  /** Epoch start date (ISO string). Default: "2024-12-22" */
+  /** Epoch start date (ISO string). Default: "2025-12-23" */
   epochDate?: string;
   /** Link target URL. Default: "https://www.olsme.com" */
   linkUrl?: string;

@@ -2,7 +2,7 @@
 // Extracted & generalized from olsme.com LightTime.tsx, OLSCalendar.tsx, MiniLightTimeToggle.tsx
 
 import {
-  LIGHT_TIME_MAP,
+  getTimeData,
   CoordinatesSchema,
   type LightHourResult,
   type LightDayInfo,
@@ -10,7 +10,7 @@ import {
   type Coordinates,
 } from "./types";
 
-const DEFAULT_EPOCH = "2024-12-22";
+const DEFAULT_EPOCH = "2025-12-23";
 const DEFAULT_LIGHT_YEAR_BASE = 3406;
 
 // ─── Light Hour ───────────────────────────────────────────
@@ -19,10 +19,11 @@ const DEFAULT_LIGHT_YEAR_BASE = 3406;
  * Get the current Light Time label for a given hour index (0–23).
  * Returns validated LightHourResult.
  */
-export function getLightHour(hourIndex?: number): LightHourResult {
+export function getLightHour(hourIndex?: number, date?: Date): LightHourResult {
   const idx = hourIndex ?? new Date().getHours();
   const clamped = Math.max(0, Math.min(23, Math.floor(idx)));
-  const entry = LIGHT_TIME_MAP[clamped];
+  const map = getTimeData(date ?? new Date());
+  const entry = map[clamped];
 
   if (!entry) {
     return { lightTime: "7dh", isDarkHour: true, isLightHour: false, hourIndex: 0 };
@@ -40,8 +41,8 @@ export function getLightHour(hourIndex?: number): LightHourResult {
 /**
  * Get the full 24-entry Light Time conversion table.
  */
-export function getLightTimeTable() {
-  return LIGHT_TIME_MAP;
+export function getLightTimeTable(date?: Date) {
+  return getTimeData(date ?? new Date());
 }
 
 // ─── Light Day (Proper Day) ──────────────────────────────
@@ -89,6 +90,7 @@ export function getLightDay(
 
   return {
     day,
+    dayOfYear: (day - 1) % 365,
     quarter,
     quarterLabel: `Q${quarter}`,
     year: lightYearBase + yearOffset,

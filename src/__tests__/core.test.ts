@@ -1,9 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { getLightHour, getLightDay, validateCoordinates, formatLightTime, formatLightDay, getLightTimeTable } from "../core";
+import { getActiveQuarter, getTimeData } from "../types";
 
 describe("getLightHour", () => {
-  it("returns 7dh for hour 0 (midnight)", () => {
-    const result = getLightHour(0);
+  it("returns 7dh for hour 0 (midnight) on Q2.2 date", () => {
+    const result = getLightHour(0, new Date(2026, 3, 1));
     expect(result.lightTime).toBe("7dh");
     expect(result.isDarkHour).toBe(true);
   });
@@ -20,8 +21,14 @@ describe("getLightHour", () => {
     expect(result.isLightHour).toBe(true);
   });
 
-  it("returns 1dh for hour 18 (6 PM)", () => {
-    const result = getLightHour(18);
+  it("returns 13LH for hour 18 (6 PM) in Q2.2/Q2.3", () => {
+    const result = getLightHour(18, new Date(2026, 3, 1));
+    expect(result.lightTime).toBe("13LH");
+    expect(result.isLightHour).toBe(true);
+  });
+
+  it("returns 1dh for hour 19 (7 PM)", () => {
+    const result = getLightHour(19, new Date(2026, 3, 1));
     expect(result.lightTime).toBe("1dh");
     expect(result.isDarkHour).toBe(true);
   });
@@ -36,40 +43,71 @@ describe("getLightHour", () => {
     expect(result.hourIndex).toBeGreaterThanOrEqual(0);
     expect(result.hourIndex).toBeLessThanOrEqual(23);
   });
+
+  it("getLightHour at midnight on Apr 23 returns 6dh (Q2.3)", () => {
+    const result = getLightHour(0, new Date(2026, 3, 23));
+    expect(result.lightTime).toBe("6dh");
+    expect(result.isDarkHour).toBe(true);
+  });
+
+  it("getLightHour at midnight on Apr 1 returns 7dh (Q2.2)", () => {
+    const result = getLightHour(0, new Date(2026, 3, 1));
+    expect(result.lightTime).toBe("7dh");
+  });
+});
+
+describe("getActiveQuarter", () => {
+  it("returns Q2.2 on Apr 1", () => {
+    expect(getActiveQuarter(new Date(2026, 3, 1))).toBe("Q2.2");
+  });
+
+  it("returns Q2.3 on Apr 23", () => {
+    expect(getActiveQuarter(new Date(2026, 3, 23))).toBe("Q2.3");
+  });
+});
+
+describe("getTimeData", () => {
+  it("midnight on Apr 23 is 6dh (Q2.3)", () => {
+    expect(getTimeData(new Date(2026, 3, 23))[0]!.lightTime).toBe("6dh");
+  });
+
+  it("midnight on Apr 1 is 7dh (Q2.2)", () => {
+    expect(getTimeData(new Date(2026, 3, 1))[0]!.lightTime).toBe("7dh");
+  });
 });
 
 describe("getLightDay", () => {
   it("returns day 1 for epoch date", () => {
-    const result = getLightDay(new Date("2024-12-22"));
+    const result = getLightDay(new Date("2025-12-23"));
     expect(result.day).toBe(1);
     expect(result.quarter).toBe(1);
     expect(result.year).toBe(3406);
   });
 
   it("returns Q2 for spring equinox (day 85)", () => {
-    const epoch = new Date("2024-12-22");
+    const epoch = new Date("2025-12-23");
     const equinox = new Date(epoch.getTime() + 84 * 24 * 60 * 60 * 1000);
     const result = getLightDay(equinox);
     expect(result.quarter).toBe(2);
   });
 
   it("returns correct quarterLabel format", () => {
-    const result = getLightDay(new Date("2024-12-22"));
+    const result = getLightDay(new Date("2025-12-23"));
     expect(result.quarterLabel).toBe("Q1");
   });
 
   it("respects custom config", () => {
-    const result = getLightDay(new Date("2024-12-22"), {
-      epochDate: "2024-12-22",
+    const result = getLightDay(new Date("2025-12-23"), {
+      epochDate: "2025-12-23",
       lightYearBase: 1000,
     });
     expect(result.year).toBe(1000);
   });
 
   it("returns day 1 for epoch using local-date constructor (timezone-safe)", () => {
-    // new Date(y, m-1, d) creates local midnight, so getDate() always returns 22
+    // new Date(y, m-1, d) creates local midnight, so getDate() always returns 23
     // regardless of the runtime timezone — verifying no UTC ±1 day shift occurs.
-    const epochLocal = new Date(2024, 11, 22); // Dec 22, 2024 local midnight
+    const epochLocal = new Date(2025, 11, 23); // Dec 23, 2025 local midnight
     const result = getLightDay(epochLocal);
     expect(result.day).toBe(1);
     expect(result.quarter).toBe(1);
@@ -78,11 +116,16 @@ describe("getLightDay", () => {
 
   it("epochDate string is parsed as local calendar date (timezone-safe)", () => {
     // Both the date arg (local midnight via new Date(y,m-1,d)) and the epochDate
-    // string ("2024-12-22" split on '-') resolve to Dec 22, so day must be 1
+    // string ("2025-12-23" split on '-') resolve to Dec 23, so day must be 1
     // regardless of runtime timezone.
-    const epochLocal = new Date(2024, 11, 22); // Dec 22, 2024 local midnight
-    const result = getLightDay(epochLocal, { epochDate: "2024-12-22" });
+    const epochLocal = new Date(2025, 11, 23); // Dec 23, 2025 local midnight
+    const result = getLightDay(epochLocal, { epochDate: "2025-12-23" });
     expect(result.day).toBe(1);
+  });
+
+  it("returns 125LD on Apr 26, 2026", () => {
+    const result = getLightDay(new Date(2026, 3, 26));
+    expect(result.day).toBe(125);
   });
 });
 
@@ -145,13 +188,13 @@ describe("getLightTimeTable", () => {
     expect(table).toHaveLength(24);
   });
 
-  it("first entry is midnight (7dh)", () => {
-    const table = getLightTimeTable();
+  it("first entry is midnight (7dh) on Q2.2 date", () => {
+    const table = getLightTimeTable(new Date(2026, 3, 1));
     expect(table[0]?.lightTime).toBe("7dh");
   });
 
-  it("last entry is 11PM (6dh)", () => {
+  it("last entry is 11PM (5dh)", () => {
     const table = getLightTimeTable();
-    expect(table[23]?.lightTime).toBe("6dh");
+    expect(table[23]?.lightTime).toBe("5dh");
   });
 });
