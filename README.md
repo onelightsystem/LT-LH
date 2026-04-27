@@ -13,7 +13,7 @@ The **OLS Light Calendar** helps you align with the Sun's natural rhythm instead
 
 - **Light Hour (LH)**: 1LH–13LH = 6:00 AM to 6:00 PM (your natural daylight energy window)
 - **Dark Hour (dh)**: 1dh–11dh = 7:00 PM to 5:00 AM (rest and recovery window, Q2.3)
-- **Light Day (LD)**: Day count since Winter Solstice (Dec 22, 2024)
+- **Light Day (LD)**: Day count since Winter Solstice (Dec 23, 2025)
 - **Light Year**: Currently 3406 (starting from the first known Sun Light Meditation)
 
 At 11:25 AM traditional time you may already be in **6LH** — halfway through your natural light day. This simple awareness supports better circadian health, meditation timing, and daily energy flow.
