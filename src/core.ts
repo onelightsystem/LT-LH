@@ -79,7 +79,7 @@ export function getLightDay(
   const day = Math.floor(targetDayNum - epochDayNum) + 1;
 
   // Quarter boundaries: Q1 = 1-84, Q2 = 85-176, Q3 = 177-267, Q4 = 268-365
-  const dayInYear = ((day - 1) % 365) + 1;
+  const dayInYear = ((((day - 1) % 365) + 365) % 365) + 1;
   let quarter: number;
   if (dayInYear <= 84) quarter = 1;
   else if (dayInYear <= 176) quarter = 2;
