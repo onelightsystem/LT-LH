@@ -54,7 +54,7 @@ export interface LightTimeConfig {
 }
 
 // ─── Quarter types ─────────────────────────────────────────
-export type QuarterKey = 'Q2.2' | 'Q2.3';
+export type QuarterKey = "Q2.2" | "Q2.3";
 
 // ─── Q2.2: Mar 20 – Apr 22 ─────────────────────────────────
 // 13LH (6AM–6PM), 11dh total, midnight = 7dh
