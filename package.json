@@ -1,6 +1,6 @@
 {
   "name": "@olsystem/lt-lh",
-  "version": "0.1.2",
+  "version": "0.2.3",
   "description": "OLS Sun Light Time system — Light Hour (LH) / dark hour (dh) conversion, Proper Day counter, and embeddable widgets for the OneLightSystem Light Calendar.",
   "keywords": [
     "ols",

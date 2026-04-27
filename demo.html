@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@olsystem/lt-lh — v0.2.3 Local Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      gap: 2.5rem;
+    }
+
+    h1 { font-size: 1.1rem; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── LH toggle ────────────────────────────────────────────── */
+    .ols-lighttime-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #ols-lighttime-widget {
+      cursor: default;
+    }
+
+    .ols-lighttime-toggle {
+      font-size: 5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 1.25rem;
+      padding: 1rem 2.5rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .ols-lighttime-label {
+      font-size: 0.75rem;
+      color: #555;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Calendar widget ──────────────────────────────────────── */
+    .ols-calendar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: #e5e5e5;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 0.75rem;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .ols-calendar-day {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* ── Season info card ─────────────────────────────────────── */
+    .season-card {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 1rem;
+      padding: 1.25rem 2rem;
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .season-card h2 {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .season-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .season-card th {
+      color: #555;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .season-card td {
+      padding: 0.2rem 0.5rem;
+      color: #ccc;
+    }
+
+    .season-card td.lh { color: #ffd700; font-weight: 600; }
+    .season-card td.dh { color: #6699cc; }
+
+    /* ── Footer note ──────────────────────────────────────────── */
+    footer {
+      font-size: 0.72rem;
+      color: #444;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>@olsystem/lt-lh — v0.2.3 Local Demo</h1>
+
+  <!-- Light Hour Widget -->
+  <div class="ols-lighttime-wrapper">
+    <div id="ols-lighttime-widget"></div>
+    <span class="ols-lighttime-label">Current Light Time</span>
+  </div>
+
+  <!-- Calendar / Proper Day Widget -->
+  <div id="ols-calendar-widget" data-start-date="2025-12-23"></div>
+
+  <!-- Season boundary table -->
+  <div class="season-card">
+    <h2>Q2.3 — Apr 23 → ~May 4 &nbsp;|&nbsp; midnight = 6dh · 11 dark hours</h2>
+    <table>
+      <tr><th>Clock</th><th>Light Time</th><th>Clock</th><th>Light Time</th></tr>
+      <tr><td>12 AM</td><td class="dh">6dh ★</td><td>12 PM</td><td class="lh">7LH</td></tr>
+      <tr><td>1 AM</td><td class="dh">7dh</td><td>1 PM</td><td class="lh">8LH</td></tr>
+      <tr><td>2 AM</td><td class="dh">8dh</td><td>2 PM</td><td class="lh">9LH</td></tr>
+      <tr><td>3 AM</td><td class="dh">9dh</td><td>3 PM</td><td class="lh">10LH</td></tr>
+      <tr><td>4 AM</td><td class="dh">10dh</td><td>4 PM</td><td class="lh">11LH</td></tr>
+      <tr><td>5 AM</td><td class="dh">11dh</td><td>5 PM</td><td class="lh">12LH</td></tr>
+      <tr><td>6 AM</td><td class="lh">1LH</td><td>6 PM</td><td class="lh">13LH ★</td></tr>
+      <tr><td>7 AM</td><td class="lh">2LH</td><td>7 PM</td><td class="dh">1dh</td></tr>
+      <tr><td>8 AM</td><td class="lh">3LH</td><td>8 PM</td><td class="dh">2dh</td></tr>
+      <tr><td>9 AM</td><td class="lh">4LH</td><td>9 PM</td><td class="dh">3dh</td></tr>
+      <tr><td>10 AM</td><td class="lh">5LH</td><td>10 PM</td><td class="dh">4dh</td></tr>
+      <tr><td>11 AM</td><td class="lh">6LH</td><td>11 PM</td><td class="dh">5dh</td></tr>
+    </table>
+  </div>
+
+  <footer>Local build — dist/widgets/ · No network calls · Season auto-detected</footer>
+
+  <!-- Load built widgets from local dist -->
+  <script src="./dist/widgets/ols-lighttime-widget.global.js"></script>
+  <script src="./dist/widgets/ols-calendar-widget.global.js"></script>
+  <script>
+    initLightTimeWidget({ containerId: 'ols-lighttime-widget' });
+    initCalendarWidget({ containerId: 'ols-calendar-widget', linkUrl: '#' });
+  </script>
+
+</body>
+</html>

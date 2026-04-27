@@ -12,4 +12,5 @@ export type { SnippetMode } from "./snippets";
 
 // Types & schemas
 export type { LightTimeEntry, Coordinates, LightHourResult, LightDayInfo, LightTimeConfig } from "./types";
-export { LIGHT_TIME_MAP, LightTimeEntrySchema, CoordinatesSchema } from "./types";
+export type { QuarterKey } from "./types";
+export { LIGHT_TIME_MAP, LIGHT_TIME_MAP_Q22, LIGHT_TIME_MAP_Q23, getActiveQuarter, getTimeData, LightTimeEntrySchema, CoordinatesSchema } from "./types";
