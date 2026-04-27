@@ -97,7 +97,7 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 
 ```ts
 interface LightTimeConfig {
-  epochDate?: string;       // Default: "2024-12-22"
+  epochDate?: string;       // Default: "2025-12-23"
   lightYearBase?: number;   // Default: 3406
   refreshInterval?: number; // Default: 60000 (ms)
 }

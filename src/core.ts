@@ -20,7 +20,7 @@ const DEFAULT_LIGHT_YEAR_BASE = 3406;
  * Returns validated LightHourResult.
  */
 export function getLightHour(hourIndex?: number, date?: Date): LightHourResult {
-  const idx = hourIndex ?? new Date().getHours();
+  const idx = hourIndex ?? (date ?? new Date()).getHours();
   const clamped = Math.max(0, Math.min(23, Math.floor(idx)));
   const map = getTimeData(date ?? new Date());
   const entry = map[clamped];
