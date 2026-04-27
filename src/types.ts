@@ -20,7 +20,7 @@ export type LightTimeEntry = z.infer<typeof LightTimeEntrySchema>;
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 
 export interface LightDayInfo {
-  /** Day number since the Light Calendar epoch (Dec 22, 2024 by default) */
+  /** Day number since the Light Calendar epoch (2025-12-23 by default) */
   day: number;
   /** Day number within the current Light Year (1–365) */
   dayOfYear: number;
