@@ -145,5 +145,7 @@ export function getTimeData(now: Date = new Date()): readonly LightTimeEntry[] {
   return QUARTER_DATA[getActiveQuarter(now)];
 }
 
-// Backward-compatible alias — returns current season's table
+// Backward-compatible alias — snapshot of the active quarter at module import time.
+// This value does not update automatically in long-running processes; use
+// `getTimeData(now?)` for dynamic, date/season-aware behavior.
 export const LIGHT_TIME_MAP: readonly LightTimeEntry[] = getTimeData();
