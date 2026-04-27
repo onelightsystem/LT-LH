@@ -193,8 +193,8 @@ describe("getLightTimeTable", () => {
     expect(table[0]?.lightTime).toBe("7dh");
   });
 
-  it("last entry is 11PM (5dh)", () => {
-    const table = getLightTimeTable();
+  it("last entry is 11PM (5dh) on Q2.2 date", () => {
+    const table = getLightTimeTable(new Date(2026, 3, 1));
     expect(table[23]?.lightTime).toBe("5dh");
   });
 });

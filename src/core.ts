@@ -90,7 +90,7 @@ export function getLightDay(
 
   return {
     day,
-    dayOfYear: (day - 1) % 365,
+    dayOfYear: dayInYear,
     quarter,
     quarterLabel: `Q${quarter}`,
     year: lightYearBase + yearOffset,
