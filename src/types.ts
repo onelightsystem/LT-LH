@@ -57,12 +57,12 @@ export interface LightTimeConfig {
 export type LightQuarterLabel = "Q1" | "Q2" | "Q3" | "Q4";
 
 /** Canonical LD-quarter accent colors, validated against olsme.com's quarterTheme.ts */
-export const QUARTER_COLORS: Record<LightQuarterLabel, string> = {
+export const QUARTER_COLORS: Readonly<Record<LightQuarterLabel, string>> = Object.freeze({
   Q1: "#0427f4", // blue
   Q2: "#22c55e", // green
   Q3: "#f59e0b", // amber
   Q4: "#8b5cf6", // purple
-} as const;
+});
 
 // ─── Quarter types ─────────────────────────────────────────
 export type QuarterKey = "Q2.2" | "Q2.3";

@@ -50,8 +50,11 @@ export function getLightTimeTable(date?: Date) {
 /**
  * Get the canonical accent color for an LD quarter label ("Q1"–"Q4").
  */
-export function getQuarterColor(quarterLabel: LightQuarterLabel): string {
-  return QUARTER_COLORS[quarterLabel];
+export function getQuarterColor(quarterLabel: string): string {
+  if (!Object.hasOwn(QUARTER_COLORS, quarterLabel)) {
+    throw new Error(`Invalid quarter label: ${quarterLabel}`);
+  }
+  return QUARTER_COLORS[quarterLabel as LightQuarterLabel];
 }
 
 // ─── Light Day (Proper Day) ──────────────────────────────

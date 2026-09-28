@@ -215,4 +215,8 @@ describe("getQuarterColor", () => {
       expect(getQuarterColor(q)).toBe(QUARTER_COLORS[q]);
     });
   });
+
+  it("rejects an invalid quarter label", () => {
+    expect(() => getQuarterColor("Q5")).toThrow("Invalid quarter label: Q5");
+  });
 });

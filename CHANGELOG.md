@@ -11,7 +11,7 @@ All notable changes to `@olsystem/lt-lh` are documented here.
 - New public API: `LightQuarterLabel` type (`"Q1" | "Q2" | "Q3" | "Q4"`).
 
 ### Notes
-- `getLightDay()`'s `quarterLabel` field remains a plain `string` (not narrowed to `LightQuarterLabel`) to avoid a breaking type change for existing consumers — pass it into `getQuarterColor()` as-is.
+- `getLightDay()`'s `quarterLabel` field remains a plain `string` (not narrowed to `LightQuarterLabel`) to avoid a breaking type change for existing consumers. `getQuarterColor()` validates the label at runtime.
 - No epoch or seasonal-table changes in this release — both were already correct as of `0.2.3`.
 
 ---

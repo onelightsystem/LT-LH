@@ -68,8 +68,7 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 import { getLightDay, getQuarterColor } from '@olsystem/lt-lh';
 
 const day = getLightDay();
-// quarterLabel is a plain string ('Q1'-'Q4'); cast when passing to getQuarterColor
-const color = getQuarterColor(day.quarterLabel as any);
+const color = getQuarterColor(day.quarterLabel);
 console.log(color); // e.g. "#22c55e" for Q2
 ```
 
