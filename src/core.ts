@@ -4,10 +4,12 @@
 import {
   getTimeData,
   CoordinatesSchema,
+  QUARTER_COLORS,
   type LightHourResult,
   type LightDayInfo,
   type LightTimeConfig,
   type Coordinates,
+  type LightQuarterLabel,
 } from "./types";
 
 const DEFAULT_EPOCH = "2025-12-23";
@@ -43,6 +45,16 @@ export function getLightHour(hourIndex?: number, date?: Date): LightHourResult {
  */
 export function getLightTimeTable(date?: Date) {
   return getTimeData(date ?? new Date());
+}
+
+/**
+ * Get the canonical accent color for an LD quarter label ("Q1"–"Q4").
+ */
+export function getQuarterColor(quarterLabel: string): string {
+  if (!Object.hasOwn(QUARTER_COLORS, quarterLabel)) {
+    throw new Error(`Invalid quarter label: ${quarterLabel}`);
+  }
+  return QUARTER_COLORS[quarterLabel as LightQuarterLabel];
 }
 
 // ─── Light Day (Proper Day) ──────────────────────────────
