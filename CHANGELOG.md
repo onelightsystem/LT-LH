@@ -4,6 +4,18 @@ All notable changes to `@olsystem/lt-lh` are documented here.
 
 ---
 
+## [0.4.0] — 2026-09-28
+
+### Added
+- **Q-color / quarter theming API** — new `QUARTER_COLORS` constant (`Q1` blue `#0427f4`, `Q2` green `#22c55e`, `Q3` amber `#f59e0b`, `Q4` purple `#8b5cf6`) and `getQuarterColor(quarterLabel)` helper, so consumers no longer need to hand-roll their own copy of these colors.
+- New public API: `LightQuarterLabel` type (`"Q1" | "Q2" | "Q3" | "Q4"`).
+
+### Notes
+- `getLightDay()`'s `quarterLabel` field remains a plain `string` (not narrowed to `LightQuarterLabel`) to avoid a breaking type change for existing consumers — pass it into `getQuarterColor()` as-is.
+- No epoch or seasonal-table changes in this release — both were already correct as of `0.2.3`.
+
+---
+
 ## [0.2.3] — 2026-04-26
 
 ### Added

@@ -19,6 +19,7 @@ export default [
         document: "readonly",
         window: "readonly",
         HTMLElement: "readonly",
+        HTMLScriptElement: "readonly",
       },
     },
     plugins: {

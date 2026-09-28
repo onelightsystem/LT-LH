@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { getLightHour, getLightDay, validateCoordinates, formatLightTime, formatLightDay, getLightTimeTable } from "../core";
-import { getActiveQuarter, getTimeData } from "../types";
+import { getLightHour, getLightDay, validateCoordinates, formatLightTime, formatLightDay, getLightTimeTable, getQuarterColor } from "../core";
+import { getActiveQuarter, getTimeData, QUARTER_COLORS } from "../types";
 
 describe("getLightHour", () => {
   it("returns 7dh for hour 0 (midnight) on Q2.2 date", () => {
@@ -196,5 +196,23 @@ describe("getLightTimeTable", () => {
   it("last entry is 11PM (5dh) on Q2.2 date", () => {
     const table = getLightTimeTable(new Date(2026, 3, 1));
     expect(table[23]?.lightTime).toBe("5dh");
+  });
+});
+
+describe("QUARTER_COLORS", () => {
+  it("has all four quarters", () => {
+    expect(Object.keys(QUARTER_COLORS).sort()).toEqual(["Q1", "Q2", "Q3", "Q4"]);
+  });
+});
+
+describe("getQuarterColor", () => {
+  it("returns the amber hex for Q3", () => {
+    expect(getQuarterColor("Q3")).toBe("#f59e0b");
+  });
+
+  it("return value matches QUARTER_COLORS for every key", () => {
+    (["Q1", "Q2", "Q3", "Q4"] as const).forEach((q) => {
+      expect(getQuarterColor(q)).toBe(QUARTER_COLORS[q]);
+    });
   });
 });

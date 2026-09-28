@@ -62,6 +62,17 @@ const day = getLightDay();
 console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 ```
 
+### Q-Color / Quarter Theming
+
+```ts
+import { getLightDay, getQuarterColor } from '@olsystem/lt-lh';
+
+const day = getLightDay();
+// quarterLabel is a plain string ('Q1'-'Q4'); cast when passing to getQuarterColor
+const color = getQuarterColor(day.quarterLabel as any);
+console.log(color); // e.g. "#22c55e" for Q2
+```
+
 ### Embeddable Vanilla Widgets (No build tools)
 
 ```html
@@ -92,6 +103,7 @@ console.log(`Day ${day.day} • ${day.quarterLabel} • Year ${day.year}`);
 | `generateSnippet(mode)` | Copy-ready TypeScript snippet (`"lh"` or `"lh+ld"`) |
 | `getActiveQuarter(date?)` | Returns active `QuarterKey` e.g. `"Q2.3"` |
 | `getTimeData(date?)` | Returns the season table for a given date |
+| `getQuarterColor(quarterLabel)` | Returns the canonical accent hex for `"Q1"`–`"Q4"` |
 
 ### Types
 
